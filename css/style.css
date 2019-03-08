@@ -1,0 +1,25 @@
+h1 {
+    color: #cca500;
+ 
+}
+
+h3 {
+    color: #797557;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+/* 
+th {
+    color: #797557;
+    font-family: 'Abel', sans-serif;
+} */
+
+.blue-back {
+    background-color:  #3d98c2;
+}
+
+.lbl, th {
+    color: #797557;
+}
+
+
+

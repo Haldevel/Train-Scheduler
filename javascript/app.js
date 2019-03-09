@@ -78,10 +78,11 @@ database.ref().on("child_added", function(childSnapshot) {
     var diffMinutes = moment().diff(moment(trainStart, "X"), "minutes");
     console.log( "diffMinutes " +  diffMinutes);
     
-    //calculate 
+    //calculate how many minutes passed since the most recent train arrived
     var minutesSinceLast =  diffMinutes%trainFrequency;
     console.log( "minutesSinceLast " +  minutesSinceLast);
 
+    //calculate how many minutes left untill the next closest train
     var minutesLeft = trainFrequency - minutesSinceLast;
 
     var secNow = moment().format("X");

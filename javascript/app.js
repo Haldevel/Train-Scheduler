@@ -17,10 +17,10 @@
 $("#add-train-btn").on("click", function(event) {
     event.preventDefault();
   
-    //parse the military time from the corresponding input
+    //parse the military time from the first-train-input
     var timeStart = ($("#first-train-input").val().trim()).split(":");
     //create a moment for today's date and the time from timeStart
-    console.log("timeStart " + timeStart );
+    console.log("timeStart " + timeStart);
     var dateTimeFirst = moment({hour: timeStart[0], minute: timeStart[1] });
    
     // Grabs user input
@@ -39,7 +39,7 @@ $("#add-train-btn").on("click", function(event) {
 
     console.log(newTrain);
   
-    // Uploads employee data to the database
+    // Upload the train data to the database
     database.ref().push(newTrain);
   
     // Logs everything to console
@@ -50,14 +50,14 @@ $("#add-train-btn").on("click", function(event) {
   
     alert("Train successfully added");
   
-    // Clears all of the text-boxes
+    // Clear all of the text boxes
     $("#train-name-input").val("");
     $("#destination-input").val("");
     $("#first-train-input").val("");
     $("#frequency-input").val("");
   });
 
-  // 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
+  // 3. Create Firebase event for generating a table row and appending it to the html table when a user adds an entry
 database.ref().on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val());
   
@@ -67,16 +67,18 @@ database.ref().on("child_added", function(childSnapshot) {
     var trainStart = childSnapshot.val().trStart;
     var trainFrequency = parseInt(childSnapshot.val().trFrequency);
   
-    // Employee Info
+    // Train Info from the db
     console.log(trainName);
     console.log(trainDestination);
     console.log(trainStart);
     console.log(trainFrequency);
 
-    //create a moment for now with local time:
+    //create a moment for now (local time)
+    //and calculates the difference in minutes between the moment in now and the moment when the first train arrives:
     var diffMinutes = moment().diff(moment(trainStart, "X"), "minutes");
     console.log( "diffMinutes " +  diffMinutes);
     
+    //calculate 
     var minutesSinceLast =  diffMinutes%trainFrequency;
     console.log( "minutesSinceLast " +  minutesSinceLast);
 
@@ -95,9 +97,6 @@ database.ref().on("child_added", function(childSnapshot) {
 
     /* var secondsTrainArrives = moment.unix(secToArrive);
     console.log("secondsTrainArrives " +secondsTrainArrives); */
-
-
-
 
     //var secondsTrainArrives = moment().format("X") + minutesLeft * 60;
     //console.log("1 " +secondsTrainArrives);

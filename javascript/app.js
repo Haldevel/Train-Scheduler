@@ -87,34 +87,19 @@ database.ref().on("child_added", function(childSnapshot) {
     //calculate how many minutes left untill the next closest train
     var minutesLeft = trainFrequency - minutesSinceLast;
 
-    //recalc//
-
-    //var arrTime =  + minutesLeft + ;
-
-
-    //recalc//
-
-
-
+    //calculate arrival time - current time in unix format (s)
     var secNow = currMoment.format("X");
     console.log("secNow: " + secNow);
-
+    //translate the minutes left to the next train to seconds
     var delta = minutesLeft * 60;
 
-    var secToArrive = parseInt(secNow) + parseInt(delta);
+    var secToArrive = parseInt(secNow) + delta;
     console.log("secToArrive " +  secToArrive);
 
+    //calculate the arrival time from unix formatted time to HH:mm format
     const arrivalTime = moment.unix(secToArrive).format('HH:mm');
     console.log("formatted " + arrivalTime);
-
-    /* var secondsTrainArrives = moment.unix(secToArrive);
-    console.log("secondsTrainArrives " +secondsTrainArrives); */
-
-    //var secondsTrainArrives = moment().format("X") + minutesLeft * 60;
-   
-
  
-  
     // Create the new row
     var newRow = $("<tr>").append(
       $("<td>").text(trainName),

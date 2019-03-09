@@ -75,7 +75,9 @@ database.ref().on("child_added", function(childSnapshot) {
 
     //create a moment for now (local time)
     //and calculates the difference in minutes between the moment in now and the moment when the first train arrives:
-    var diffMinutes = moment().diff(moment(trainStart, "X"), "minutes");
+   
+    var currMoment = moment();
+    var diffMinutes = currMoment.diff(moment(trainStart, "X"), "minutes");
     console.log( "diffMinutes " +  diffMinutes);
     
     //calculate how many minutes passed since the most recent train arrived
@@ -85,7 +87,16 @@ database.ref().on("child_added", function(childSnapshot) {
     //calculate how many minutes left untill the next closest train
     var minutesLeft = trainFrequency - minutesSinceLast;
 
-    var secNow = moment().format("X");
+    //recalc//
+
+    //var arrTime =  + minutesLeft + ;
+
+
+    //recalc//
+
+
+
+    var secNow = currMoment.format("X");
     console.log("secNow: " + secNow);
 
     var delta = minutesLeft * 60;
@@ -100,30 +111,9 @@ database.ref().on("child_added", function(childSnapshot) {
     console.log("secondsTrainArrives " +secondsTrainArrives); */
 
     //var secondsTrainArrives = moment().format("X") + minutesLeft * 60;
-    //console.log("1 " +secondsTrainArrives);
-    //var dateString = moment.unix(secondsTrainArrives);
-    //.format("YYYY-MM-DD");
-    //console.log(dateString);
+   
 
-
-    //var diff = moment().diff(moment(trainStart, "X"), "minutes");
-
-    //var nextTrainTimeHours = Math.floor(howManyMinutesLeft/60);
-    //var nextTrainTimeMinutes = howManyMinutesLeft%60;
-
-    //console.log("in " + nextTrainTimeHours + ":" + nextTrainTimeMinutes);
-
-   /*  // Prettify the employee start
-    var empStartPretty = moment.unix(empStart).format("MM/DD/YYYY");
-  
-    // Calculate the months worked using hardcore math
-    // To calculate the months worked
-    var empMonths = moment().diff(moment(empStart, "X"), "months");
-    console.log(empMonths);
-  
-    // Calculate the total billed rate
-    var empBilled = empMonths * empRate;
-    console.log(empBilled); */
+ 
   
     // Create the new row
     var newRow = $("<tr>").append(

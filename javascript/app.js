@@ -134,6 +134,8 @@ database.ref().on("child_added", function(childSnapshot) {
       $("<td>").text(minutesLeft)
  
     );
+
+    newRow.addClass("lbl");
   
     // Append the new row to the table
     $("#train-table > tbody").append(newRow);
